@@ -1,0 +1,26 @@
+h1 {
+    color: brown;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul #inline-li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+#icons {
+    width: 16px;
+    height: 16px;
+    margin-left: 1rem;
+  }
+
+
+  li input{
+/* Design CheckBox */
+  }

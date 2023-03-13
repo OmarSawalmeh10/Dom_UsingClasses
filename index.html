@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>DOM</title>
+</head>
+
+<body>
+  <h1>DOM</h1>
+  <div id="textPassDiv"></div>
+  <div id="rangeDiv"></div>
+  <div id="checkListDiv"></div>
+  <div id="getAllData"></div>
+
+
+  <script src="FieldBase.js"></script>
+  <script src="InputBase.js"></script>
+  <script src="TextField.js"></script>
+  <script src="PasswordField.js"></script>
+  <script src="IntegerRangeField.js"></script>
+  <script src="ButtonField.js"></script>
+  <script src="CheckListField.js"></script>
+  <script src="GetAllData.js"></script>
+  <script>
+
+    // Div for text, password and button field ---
+    const divInputs = document.getElementById('textPassDiv');
+
+    // Text Field
+    const textOptions = {
+      id: 'text',
+      name: 'text',
+      isRequired: true,
+      readOnly: true
+    };
+
+    const text = new TextField(divInputs, textOptions);
+    text.render();
+    text.setValue('DOM Classes')
+
+    // Password Field
+    const passwordOptions = {
+      id: 'pass',
+      name: 'pass',
+      isRequired: true,
+      readOnly: false
+    }
+    const pass = new PasswordField(divInputs, passwordOptions);
+    pass.render();
+
+
+    // Button Field
+    const ButoonOptions = {
+      id: 'button',
+      name: 'button',
+      label: '-- Click --',
+      onClick: onChangeClick
+    }
+    function onChangeClick() {
+      alert(true)
+    }
+    const button = new ButtonField(divInputs, ButoonOptions)
+    button.render();
+
+    ////////////////////////////////////////////////////////////////
+    // Div for range field ---
+    const divRange = document.getElementById('rangeDiv');
+    const rangeOptions = {
+      id: 'range',
+      name: 'range',
+      //isRequired: true,
+      //readOnly: false,
+    }
+
+    const range = new IntegerRangeField(divRange, rangeOptions);
+    range.render();
+
+    ////////////////////////////////////////////////////////////////
+    // Div for checkList(Choices) field ---
+    // Check List
+    const divChoice = document.getElementById('checkListDiv');
+
+    const options = {
+      listChoices: [
+        {id: 'item1', text: 'Item 1', icon: 'https://cdn-icons-png.flaticon.com/512/9804/9804811.png', disabled: false},
+        {id: 'item2', text: 'Item 2', disabled: true},
+        {id: 'item3', text: 'Item 3', disabled: false},
+        {id: 'item4', text: 'Item 4', icon: 'https://cdn-icons-png.flaticon.com/512/9804/9804821.png', disabled: false},
+        {id: 'item5', text: 'Item 5', disabled: false},
+        {id: 'item6', text: 'Item 6', disabled: false},
+        {id: 'item7', text: 'Item 7', icon: 'https://cdn-icons-png.flaticon.com/512/9804/9804842.png', disabled: false},
+        {id: 'item8', text: 'Item 8', disabled: false},
+        {id: 'item9', text: 'Item 9', disabled: true},
+      ],
+      inLine: false,
+      onChange: onChange
+    };
+
+    function onChange(id, isChecked) {
+      //
+    }
+
+    const listChoices = new CheckList(divChoice, options);
+    listChoices.render();
+    // checked for this item
+    listChoices.setValue(['item5', 'item8'])
+    // isValid is abstract method in FieldBase, must implement in subClass   
+    listChoices.isValid();
+
+    listChoices.getValue();
+
+    ////////////////////////////////////////////////////////////////
+    // Div for GetAllData field ---
+    // Button SaveAll
+    const divSaveAll = document.getElementById('getAllData');
+
+    const ButoonSaveAllOptions = {
+      id: 'button',
+      name: 'button',
+      label: '-- Save All --',
+      onClick: saveAllData
+    }
+    function saveAllData() {
+      const saveData = {
+        'rangeFieldData': range.getValue(),
+        'listChoicesData': listChoices.getValue()
+      }
+      console.log(saveData);
+    }
+    const saveAll = new GetAllData(divSaveAll, ButoonSaveAllOptions)
+
+  </script>
+
+</body>
+
+</html>
